@@ -150,6 +150,31 @@ img,svg,canvas{display:block;max-width:100%}button{font-family:inherit}
 .gt3{inset:40% 46% 0 20%;background:linear-gradient(160deg,rgba(140,200,245,.14),transparent)!important}
 .glass-tower .edge{position:absolute;width:1px;background:linear-gradient(180deg,transparent,var(--cyan),transparent);opacity:.5}
 
+/* Figura del consultor: detrás de todos los paneles de cristal (primer hijo en el DOM),
+   escalada a la altura del panel más alto (gt1: top 6% / height 94%), en tonos azules
+   de la paleta y con transparencia para integrarse al fondo. Puramente decorativa:
+   no participa del flujo del documento ni afecta ningún otro elemento. */
+.consultant-figure{position:absolute;left:-21%;top:6%;height:94%;width:auto;opacity:.48;pointer-events:none}
+/* En el rango angosto de 2 columnas (justo antes de apilarse) no hay aire suficiente
+   para el desplazamiento al centro sin acercarse al texto: se mantiene la posición
+   original y segura, dentro del área de los paneles. */
+@media (max-width:1199px){ .consultant-figure{left:8%} }
+.consultant-figure img{display:block;height:100%;width:auto;
+  filter:grayscale(1) sepia(1) hue-rotate(165deg) saturate(2.4) brightness(.95) contrast(1.05);
+  -webkit-mask-image:linear-gradient(180deg,#000 78%,transparent 100%);
+  mask-image:linear-gradient(180deg,#000 78%,transparent 100%)}
+
+/* ═══ MARQUEE / PROOF (stack de integraciones) ═══ */
+.proof{position:relative;padding:44px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.proof-label{text-align:center;font-family:var(--font);font-size:.78rem;letter-spacing:.24em;text-transform:uppercase;color:var(--fg-dim);font-weight:700;margin-bottom:30px}
+.marquee{position:relative;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+.marquee-track{display:flex;gap:64px;width:max-content;animation:scroll-x 34s linear infinite}
+.marquee:hover .marquee-track{animation-play-state:paused}
+.marquee-track .lg{font-family:var(--font);color:var(--fg-dim);font-weight:800;font-size:1.28rem;letter-spacing:-.01em;opacity:.65;white-space:nowrap;transition:.3s;display:flex;align-items:center;gap:10px}
+.marquee-track .lg:hover{opacity:1;color:var(--fg)}
+.marquee-track .lg svg{width:22px;height:22px;color:var(--cyan)}
+@keyframes scroll-x{to{transform:translateX(-50%)}}
+
 .showcase{position:relative}
 .showcase-vert{position:absolute;left:-4px;top:50%;transform:translateY(-50%) rotate(180deg);writing-mode:vertical-rl;font-family:var(--font);letter-spacing:.5em;font-size:.72rem;text-transform:uppercase;color:var(--fg-dim)}
 .mock-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px}
@@ -223,6 +248,20 @@ img,svg,canvas{display:block;max-width:100%}button{font-family:inherit}
 .rstep h4{font-family:var(--font-display);font-weight:500;font-size:1.2rem;margin-bottom:8px}
 .rstep p{font-family:var(--font);color:var(--fg-muted);font-size:.92rem}
 
+/* ═══ CASOS: testimonios + CTA en paralelo (mismo grid) ═══ */
+.casos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:stretch}
+.tst{position:relative;padding:32px;border-radius:var(--r-lg);border:1px solid var(--line);background:var(--grad-panel);box-shadow:var(--shadow);display:flex;flex-direction:column;gap:20px;transition:.35s var(--ease)}
+.tst:hover{border-color:var(--line-strong);box-shadow:var(--shadow-glow);transform:translateY(-5px)}
+.tst .stars{display:flex;gap:3px;color:var(--cyan)}
+.tst .stars svg{width:16px;height:16px}
+.tst .quote{font-family:var(--font);font-size:1rem;color:var(--fg);line-height:1.6;font-weight:500}
+.tst .who{display:flex;align-items:center;gap:13px;margin-top:auto}
+.tst .who .av{width:46px;height:46px;flex:0 0 auto;border-radius:50%;background:var(--grad-line);display:grid;place-items:center;color:#04121f;font-weight:800;font-family:var(--font)}
+.tst .who b{font-family:var(--font);display:block;font-size:.95rem;color:var(--fg)}
+.tst .who span{font-family:var(--font);color:var(--fg-dim);font-size:.82rem}
+/* El CTA ocupa todo el ancho del grid: mismo nivel, tamaño diferenciado */
+.casos-grid .cta{grid-column:1/-1;margin-top:10px}
+
 .cta{position:relative;border-radius:26px;overflow:hidden;border:1px solid var(--line-strong);background:linear-gradient(135deg,#0A2848,#08203C);padding:clamp(48px,6vw,84px);text-align:center}
 .cta::before{content:"";position:absolute;inset:0;background:radial-gradient(600px 300px at 50% -20%,rgba(91,180,232,.28),transparent 60%);pointer-events:none}
 .cta h2{position:relative;font-size:clamp(2rem,4.6vw,3.3rem);font-weight:300;margin-bottom:18px}
@@ -257,10 +296,10 @@ img,svg,canvas{display:block;max-width:100%}button{font-family:inherit}
 .footer{border-top:1px solid var(--line);padding:66px 0 30px;margin-top:30px;position:relative;z-index:2}
 .foot-grid{display:grid;grid-template-columns:1.7fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px}
 .foot-brand p{font-family:var(--font);color:var(--fg-muted);font-size:.9rem;margin-top:16px;max-width:34ch}
-.foot-social{display:flex;gap:12px;margin-top:20px}
-.foot-social a{width:42px;height:42px;border-radius:11px;border:1px solid var(--line);display:grid;place-items:center;color:var(--fg-muted);transition:.25s}
+.foot-social{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px}
+.foot-social a{position:relative;width:42px;height:42px;border-radius:11px;border:1px solid var(--line);display:grid;place-items:center;color:var(--fg-muted);transition:.25s;-webkit-tap-highlight-color:transparent}
 .foot-social a:hover{color:var(--cyan);border-color:var(--cyan)}
-.foot-social svg{width:19px;height:19px}
+.foot-social svg{width:20px;height:20px;shape-rendering:geometricPrecision}
 .foot-col h5{font-family:var(--font);font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-dim);margin-bottom:18px}
 .foot-col a{display:block;font-family:var(--font);color:var(--fg-muted);font-size:.92rem;padding:7px 0;transition:.2s}
 .foot-col a:hover{color:var(--cyan)}
@@ -279,6 +318,8 @@ img,svg,canvas{display:block;max-width:100%}button{font-family:inherit}
   .glass-tower{opacity:.5}
   .bars{grid-template-columns:1fr 1fr}
   .svc-grid{grid-template-columns:1fr 1fr}
+  .casos-grid{grid-template-columns:1fr 1fr}
+  .casos-grid .cta{grid-column:1/-1}
   .contact-grid{grid-template-columns:1fr;gap:30px}
   .foot-grid{grid-template-columns:1fr 1fr;gap:30px}
 }
@@ -290,6 +331,7 @@ img,svg,canvas{display:block;max-width:100%}button{font-family:inherit}
   .bars{grid-template-columns:1fr 1fr;gap:14px}
   .barcard.feat{grid-column:span 2}
   .svc-grid{grid-template-columns:1fr}
+  .casos-grid{grid-template-columns:1fr}
   .foot-grid{grid-template-columns:1fr}
   .foot-bottom{flex-direction:column;text-align:center}
   .cd-cell{width:66px;height:66px}
@@ -309,6 +351,11 @@ img,svg,canvas{display:block;max-width:100%}button{font-family:inherit}
 }
 /* Selector de idioma dentro del menú móvil */
 .lang-mobile{margin-top:18px;align-self:flex-start}
+.mm-social{margin:14px 4px 0;padding-top:18px;border-top:1px solid var(--line);flex-wrap:nowrap;gap:8px}
+.foot-social.mm-social a{width:36px;height:36px;border-radius:10px}
+.foot-social.mm-social svg{width:18px;height:18px}
+/* Área táctil ampliada a ~44px (accesible) sin agrandar el ícono visualmente */
+.foot-social.mm-social a::before{content:"";position:absolute;inset:-4px}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
   .reveal{opacity:1;transform:none}
@@ -373,6 +420,16 @@ img,svg,canvas{display:block;max-width:100%}button{font-family:inherit}
   <a href="#metodo" data-i18n="nav.method">Método</a>
   <a href="#casos" data-i18n="nav.cases">Casos</a>
   <a href="#contacto" data-i18n="nav.contact">Contacto</a>
+
+  <div class="foot-social mm-social">
+    <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.94 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0ZM3.2 8.5h3.5V21H3.2V8.5Zm5.5 0h3.35v1.7h.05c.47-.85 1.6-1.75 3.3-1.75 3.53 0 4.18 2.2 4.18 5.05V21h-3.5v-5.6c0-1.33-.02-3.05-1.86-3.05-1.86 0-2.15 1.45-2.15 2.95V21H8.7V8.5Z"/></svg></a>
+    <a href="#" aria-label="X / Twitter"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.24 2H21l-6.6 7.55L22 22h-6.1l-4.78-6.25L5.7 22H3l7.06-8.07L2 2h6.24l4.32 5.71L18.24 2Zm-2.14 18h1.7L7.98 3.9H6.16L16.1 20Z"/></svg></a>
+    <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073Z"/></svg></a>
+    <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C8.74 0 8.333.014 7.053.072 5.775.132 4.905.333 4.14.63a5.87 5.87 0 0 0-2.126 1.384A5.86 5.86 0 0 0 .63 4.14C.333 4.905.131 5.775.072 7.053.014 8.333 0 8.74 0 12s.014 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.789.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.986 8.74 24 12 24s3.667-.014 4.947-.072c1.277-.06 2.148-.262 2.913-.558a5.87 5.87 0 0 0 2.126-1.384 5.86 5.86 0 0 0 1.384-2.126c.296-.765.499-1.636.558-2.913.058-1.28.072-1.687.072-4.947s-.014-3.667-.072-4.947c-.06-1.277-.262-2.148-.558-2.913a5.87 5.87 0 0 0-1.384-2.126A5.86 5.86 0 0 0 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.014 15.26 0 12 0Zm0 2.16c3.203 0 3.585.016 4.85.073 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227a3.7 3.7 0 0 1-.899 1.382 3.72 3.72 0 0 1-1.38.896c-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421a3.7 3.7 0 0 1-1.379-.899 3.65 3.65 0 0 1-.9-1.38c-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.86.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06Zm0 3.678a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324Zm0 10.162a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm7.846-10.405a1.44 1.44 0 1 1-2.88 0 1.44 1.44 0 0 1 2.88 0Z"/></svg></a>
+    <a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.6 5.82A4.278 4.278 0 0 1 15.54 3h-3.09v12.4a2.592 2.592 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6 0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64 0 3.33 2.76 5.7 5.69 5.7 3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3s-1.88.09-3.24-1.48Z"/></svg></a>
+    <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814ZM9.545 15.568V8.432L15.818 12l-6.273 3.568Z"/></svg></a>
+  </div>
+
   <button class="lang lang-mobile" id="langBtnM" aria-label="Cambiar idioma / Change language"><span class="flag" id="langFlagM" aria-hidden="true"></span> <span id="langLabelM">ES</span></button>
 </aside>
 
@@ -382,6 +439,7 @@ img,svg,canvas{display:block;max-width:100%}button{font-family:inherit}
   <section class="hero" aria-labelledby="hero-title">
     <canvas id="hexnet" aria-hidden="true"></canvas>
     <div class="glass-tower" aria-hidden="true">
+      <div class="consultant-figure"><img src="consultant-figure.webp" alt="" loading="lazy" /></div>
       <div class="pane gt1"></div><div class="pane gt2"></div><div class="pane gt3"></div>
       <div class="edge" style="left:38%;top:8%;height:84%"></div>
       <div class="edge" style="left:62%;top:16%;height:76%"></div>
@@ -471,7 +529,7 @@ img,svg,canvas{display:block;max-width:100%}button{font-family:inherit}
   </section>
 
   <!-- ═══════════ RESULTADOS ═══════════ -->
-  <section class="section" id="resultados" aria-labelledby="res-title" style="padding-top:20px">
+  <section class="section" id="resultados" aria-labelledby="res-title" style="padding-top:20px;padding-bottom:20px">
     <div class="container">
       <div class="progress-wrap reveal">
         <div class="pw-top"><span data-i18n="res.start">Inicio del proyecto</span><span data-i18n="res.scale">Escalado &amp; ROI</span></div>
@@ -483,7 +541,7 @@ img,svg,canvas{display:block;max-width:100%}button{font-family:inherit}
           </div>
           <div class="pstat">
             <div class="k" data-i18n="res.s2k">Valor generado a clientes</div>
-            <div class="v">$ <span class="count" data-to="3.4" data-dec="1">0</span><small>M ARS</small></div>
+            <div class="v">$ <span class="count" data-to="3.4" data-dec="1">0</span><small>M USD</small></div>
             <div class="sub" data-i18n="res.s2s">en ahorro e ingresos</div>
           </div>
           <div class="pstat">
@@ -500,8 +558,29 @@ img,svg,canvas{display:block;max-width:100%}button{font-family:inherit}
     </div>
   </section>
 
+  <!-- ═══════════ MARQUEE / STACK DE INTEGRACIONES ═══════════ -->
+  <section class="proof" aria-label="Tecnologías y sectores">
+    <div class="container">
+      <p class="proof-label" data-i18n="proof.label">Integramos con tu stack · Trabajamos en tu sector</p>
+    </div>
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track" id="marquee">
+        <span class="lg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>OpenAI</span>
+        <span class="lg">Anthropic</span>
+        <span class="lg">Azure AI</span>
+        <span class="lg">HubSpot</span>
+        <span class="lg">Salesforce</span>
+        <span class="lg">Zapier</span>
+        <span class="lg">n8n</span>
+        <span class="lg">Notion</span>
+        <span class="lg">Slack</span>
+        <span class="lg">Google Cloud</span>
+      </div>
+    </div>
+  </section>
+
   <!-- ═══════════ BARRAS 3D ═══════════ -->
-  <section class="section" aria-labelledby="bars-title" style="padding-top:20px">
+  <section class="section" aria-labelledby="bars-title" style="padding-top:50px">
     <div class="container">
       <div class="bars-head reveal">
         <h2 id="bars-title" data-i18n-html="bars.title">Hacemos la IA <b>accesible para toda empresa</b></h2>
@@ -634,15 +713,59 @@ img,svg,canvas{display:block;max-width:100%}button{font-family:inherit}
     </div>
   </section>
 
-  <!-- ═══════════ CTA ═══════════ -->
-  <section class="section" id="casos" aria-labelledby="cta-title">
+  <!-- ═══════════ CASOS: TESTIMONIOS + CTA (mismo grid, en paralelo) ═══════════ -->
+  <section class="section" id="casos" aria-labelledby="casos-title">
     <div class="container">
-      <div class="cta reveal">
-        <h2 id="cta-title" data-i18n-html="cta.title">Pon la IA a <b>trabajar por ti</b></h2>
-        <p data-i18n="cta.p">Agenda un diagnóstico gratuito de 30 minutos. Saldrás con al menos 3 oportunidades concretas de automatización para tu empresa.</p>
-        <div class="hero-actions">
-          <a href="#contacto" class="btn solid magnetic"><span data-i18n="cta.b1">Agendar diagnóstico</span> <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
-          <a href="#servicios" class="btn ghost" data-i18n="cta.b2">Ver servicios</a>
+      <div class="sec-head center reveal">
+        <span class="eyebrow" data-i18n="tst.eyebrow">Lo que dicen</span>
+        <h2 id="casos-title" data-i18n-html="tst.title">Clientes que ya <b>escalan con IA</b></h2>
+        <p data-i18n="tst.p">Resultados reales de equipos que ya integraron IA en su operación.</p>
+      </div>
+
+      <div class="casos-grid">
+        <figure class="tst reveal" data-d="1">
+          <div class="stars" data-i18n-aria="tst.starsLabel" aria-label="5 de 5 estrellas">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.5 7 .6-5.3 4.6L18.3 21 12 17.3 5.7 21l1.6-7.3L2 9.1l7-.6L12 2Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.5 7 .6-5.3 4.6L18.3 21 12 17.3 5.7 21l1.6-7.3L2 9.1l7-.6L12 2Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.5 7 .6-5.3 4.6L18.3 21 12 17.3 5.7 21l1.6-7.3L2 9.1l7-.6L12 2Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.5 7 .6-5.3 4.6L18.3 21 12 17.3 5.7 21l1.6-7.3L2 9.1l7-.6L12 2Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.5 7 .6-5.3 4.6L18.3 21 12 17.3 5.7 21l1.6-7.3L2 9.1l7-.6L12 2Z"/></svg>
+          </div>
+          <blockquote class="quote" data-i18n="tst1.quote">"En seis semanas teníamos un agente atendiendo el 80% de las consultas. El equipo por fin se dedica a lo que importa."</blockquote>
+          <figcaption class="who"><span class="av">ML</span><div><b>María López</b><span data-i18n="tst1.role">COO · Servicios B2B</span></div></figcaption>
+        </figure>
+
+        <figure class="tst reveal" data-d="2">
+          <div class="stars" aria-label="5 de 5 estrellas">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.5 7 .6-5.3 4.6L18.3 21 12 17.3 5.7 21l1.6-7.3L2 9.1l7-.6L12 2Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.5 7 .6-5.3 4.6L18.3 21 12 17.3 5.7 21l1.6-7.3L2 9.1l7-.6L12 2Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.5 7 .6-5.3 4.6L18.3 21 12 17.3 5.7 21l1.6-7.3L2 9.1l7-.6L12 2Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.5 7 .6-5.3 4.6L18.3 21 12 17.3 5.7 21l1.6-7.3L2 9.1l7-.6L12 2Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.5 7 .6-5.3 4.6L18.3 21 12 17.3 5.7 21l1.6-7.3L2 9.1l7-.6L12 2Z"/></svg>
+          </div>
+          <blockquote class="quote" data-i18n="tst2.quote">"Nos guiaron desde cero. No solo estrategia: nos entregaron algo que funciona en producción y da resultados medibles."</blockquote>
+          <figcaption class="who"><span class="av">JR</span><div><b>Javier Ruiz</b><span data-i18n="tst2.role">CEO · E-commerce</span></div></figcaption>
+        </figure>
+
+        <figure class="tst reveal" data-d="3">
+          <div class="stars" aria-label="5 de 5 estrellas">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.5 7 .6-5.3 4.6L18.3 21 12 17.3 5.7 21l1.6-7.3L2 9.1l7-.6L12 2Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.5 7 .6-5.3 4.6L18.3 21 12 17.3 5.7 21l1.6-7.3L2 9.1l7-.6L12 2Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.5 7 .6-5.3 4.6L18.3 21 12 17.3 5.7 21l1.6-7.3L2 9.1l7-.6L12 2Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.5 7 .6-5.3 4.6L18.3 21 12 17.3 5.7 21l1.6-7.3L2 9.1l7-.6L12 2Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.5 7 .6-5.3 4.6L18.3 21 12 17.3 5.7 21l1.6-7.3L2 9.1l7-.6L12 2Z"/></svg>
+          </div>
+          <blockquote class="quote" data-i18n="tst3.quote">"Profesionales, rápidos y transparentes. El ROI se notó en el primer trimestre. Ya vamos por el tercer proyecto juntos."</blockquote>
+          <figcaption class="who"><span class="av">AC</span><div><b>Ana Castro</b><span data-i18n="tst3.role">Directora de Ops · Fintech</span></div></figcaption>
+        </figure>
+
+        <div class="cta reveal" data-d="4">
+          <h2 id="cta-title" data-i18n-html="cta.title">Pon la IA a <b>trabajar por ti</b></h2>
+          <p data-i18n="cta.p">Agenda un diagnóstico gratuito de 30 minutos. Saldrás con al menos 3 oportunidades concretas de automatización para tu empresa.</p>
+          <div class="hero-actions">
+            <a href="#contacto" class="btn solid magnetic"><span data-i18n="cta.b1">Agendar diagnóstico</span> <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+            <a href="#servicios" class="btn ghost" data-i18n="cta.b2">Ver servicios</a>
+          </div>
         </div>
       </div>
     </div>
@@ -730,7 +853,10 @@ img,svg,canvas{display:block;max-width:100%}button{font-family:inherit}
         <div class="foot-social">
           <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.94 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0ZM3.2 8.5h3.5V21H3.2V8.5Zm5.5 0h3.35v1.7h.05c.47-.85 1.6-1.75 3.3-1.75 3.53 0 4.18 2.2 4.18 5.05V21h-3.5v-5.6c0-1.33-.02-3.05-1.86-3.05-1.86 0-2.15 1.45-2.15 2.95V21H8.7V8.5Z"/></svg></a>
           <a href="#" aria-label="X / Twitter"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.24 2H21l-6.6 7.55L22 22h-6.1l-4.78-6.25L5.7 22H3l7.06-8.07L2 2h6.24l4.32 5.71L18.24 2Zm-2.14 18h1.7L7.98 3.9H6.16L16.1 20Z"/></svg></a>
-          <a href="#" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.15-1.1-1.46-1.1-1.46-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.9.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg></a>
+          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073Z"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C8.74 0 8.333.014 7.053.072 5.775.132 4.905.333 4.14.63a5.87 5.87 0 0 0-2.126 1.384A5.86 5.86 0 0 0 .63 4.14C.333 4.905.131 5.775.072 7.053.014 8.333 0 8.74 0 12s.014 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.789.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.986 8.74 24 12 24s3.667-.014 4.947-.072c1.277-.06 2.148-.262 2.913-.558a5.87 5.87 0 0 0 2.126-1.384 5.86 5.86 0 0 0 1.384-2.126c.296-.765.499-1.636.558-2.913.058-1.28.072-1.687.072-4.947s-.014-3.667-.072-4.947c-.06-1.277-.262-2.148-.558-2.913a5.87 5.87 0 0 0-1.384-2.126A5.86 5.86 0 0 0 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.014 15.26 0 12 0Zm0 2.16c3.203 0 3.585.016 4.85.073 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227a3.7 3.7 0 0 1-.899 1.382 3.72 3.72 0 0 1-1.38.896c-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421a3.7 3.7 0 0 1-1.379-.899 3.65 3.65 0 0 1-.9-1.38c-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.86.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06Zm0 3.678a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324Zm0 10.162a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm7.846-10.405a1.44 1.44 0 1 1-2.88 0 1.44 1.44 0 0 1 2.88 0Z"/></svg></a>
+          <a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.6 5.82A4.278 4.278 0 0 1 15.54 3h-3.09v12.4a2.592 2.592 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6 0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64 0 3.33 2.76 5.7 5.69 5.7 3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3s-1.88.09-3.24-1.48Z"/></svg></a>
+          <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814ZM9.545 15.568V8.432L15.818 12l-6.273 3.568Z"/></svg></a>
         </div>
       </div>
       <div class="foot-col"><h5 data-i18n="foot.services">Servicios</h5><a href="#servicios" data-i18n="svc1.h">Automatizaciones</a><a href="#servicios" data-i18n="svc2.h">Agentes de IA</a><a href="#servicios" data-i18n="svc3.h">WebChat</a><a href="#servicios" data-i18n="svc4.h">ChatBot omnicanal</a><a href="#servicios" data-i18n="svc5.h">Smart Contracts</a></div>
@@ -739,7 +865,7 @@ img,svg,canvas{display:block;max-width:100%}button{font-family:inherit}
     </div>
     <div class="foot-bottom">
       <span data-i18n-html="foot.copy">© <span id="year">2026</span> AI CONSULTANT. Todos los derechos reservados.</span>
-      <span data-i18n="foot.tagline">Diseño premium · Estética tecnológica</span>
+      <span data-i18n="foot.tagline">© Powered by Angel Caro | La Plata | Buenos Aires | Argentina</span>
     </div>
   </div>
 </footer>
@@ -773,6 +899,7 @@ img,svg,canvas{display:block;max-width:100%}button{font-family:inherit}
       "res.s2k":"Valor generado a clientes","res.s2s":"en ahorro e ingresos",
       "res.s3k":"Precisión de agentes","res.s3s":"respuestas correctas",
       "res.phase1":"Fase 1 · Diagnóstico","res.today":"Hoy",
+      "proof.label":"Integramos con tu stack · Trabajamos en tu sector",
       "bars.title":"Hacemos la IA <b>accesible para toda empresa</b>","bars.hint":"Empieza desde un piloto y escala según resultados",
       "bars.t1":"Impacto máximo","bars.k1":"Reducción de costes operativos","bars.v1":"Automatización integral",
       "bars.t2":"Ventas","bars.k2":"Más leads cualificados","bars.v2":"Agentes + WebChat",
@@ -790,6 +917,10 @@ img,svg,canvas{display:block;max-width:100%}button{font-family:inherit}
       "method.ph2":"Fase 02 · Diseñar","method.h2":"Estrategia","method.d2":"Definimos la solución, el roadmap por fases y las métricas de éxito antes de escribir una línea.",
       "method.ph3":"Fase 03 · Construir","method.h3":"Implementación","method.d3":"Desarrollamos automatizaciones, agentes y contratos con entregas iterativas y validación contigo.",
       "method.ph4":"Fase 04 · Escalar","method.h4":"Optimización","method.d4":"Medimos, ajustamos y ampliamos. Formamos a tu equipo para que tome el control con confianza.",
+      "tst.eyebrow":"Lo que dicen","tst.title":"Clientes que ya <b>escalan con IA</b>","tst.p":"Resultados reales de equipos que ya integraron IA en su operación.","tst.starsLabel":"5 de 5 estrellas",
+      "tst1.quote":"\"En seis semanas teníamos un agente atendiendo el 80% de las consultas. El equipo por fin se dedica a lo que importa.\"","tst1.role":"COO · Servicios B2B",
+      "tst2.quote":"\"Nos guiaron desde cero. No solo estrategia: nos entregaron algo que funciona en producción y da resultados medibles.\"","tst2.role":"CEO · E-commerce",
+      "tst3.quote":"\"Profesionales, rápidos y transparentes. El ROI se notó en el primer trimestre. Ya vamos por el tercer proyecto juntos.\"","tst3.role":"Directora de Ops · Fintech",
       "cta.title":"Pon la IA a <b>trabajar por ti</b>","cta.p":"Agenda un diagnóstico gratuito de 30 minutos. Saldrás con al menos 3 oportunidades concretas de automatización para tu empresa.","cta.b1":"Agendar diagnóstico","cta.b2":"Ver servicios",
       "contact.eyebrow":"Hablemos","contact.title":"Cuéntanos <b style='font-weight:700'>tu reto</b>","contact.p":"Respondemos en menos de 24 horas laborables. Sin compromiso y sin lenguaje técnico innecesario.",
       "contact.emailK":"Email","contact.bookK":"Agenda directa",
@@ -801,7 +932,7 @@ img,svg,canvas{display:block;max-width:100%}button{font-family:inherit}
       "form.okTitle":"¡Mensaje enviado!","form.okText":"Gracias por escribirnos. Te responderemos en menos de 24 horas laborables.",
       "foot.about":"Consultoría estratégica en Inteligencia Artificial. Integramos la IA en tu operación real.",
       "foot.services":"Servicios","foot.company":"Empresa","foot.legal":"Legal","foot.legal1":"Aviso legal","foot.legal2":"Privacidad","foot.legal3":"Cookies",
-      "foot.copy":"© <span id='year'>2026</span> AI CONSULTANT. Todos los derechos reservados.","foot.tagline":"Diseño premium · Estética tecnológica"
+      "foot.copy":"© <span id='year'>2026</span> AI CONSULTANT. Todos los derechos reservados.","foot.tagline":"© Powered by Angel Caro | La Plata | Buenos Aires | Argentina"
     },
     en:{
       "nav.services":"Services","nav.results":"Results","nav.method":"Method","nav.cases":"Cases","nav.contact":"Contact","nav.login":"Login",
@@ -824,6 +955,7 @@ img,svg,canvas{display:block;max-width:100%}button{font-family:inherit}
       "res.s2k":"Value generated for clients","res.s2s":"in savings and revenue",
       "res.s3k":"Agent accuracy","res.s3s":"correct answers",
       "res.phase1":"Phase 1 · Assessment","res.today":"Today",
+      "proof.label":"We integrate with your stack · We work in your industry",
       "bars.title":"We make AI <b>accessible to every company</b>","bars.hint":"Start with a pilot and scale by results",
       "bars.t1":"Maximum impact","bars.k1":"Operating cost reduction","bars.v1":"End-to-end automation",
       "bars.t2":"Sales","bars.k2":"More qualified leads","bars.v2":"Agents + WebChat",
@@ -841,6 +973,10 @@ img,svg,canvas{display:block;max-width:100%}button{font-family:inherit}
       "method.ph2":"Phase 02 · Design","method.h2":"Strategy","method.d2":"We define the solution, the phased roadmap and success metrics before writing a single line.",
       "method.ph3":"Phase 03 · Build","method.h3":"Implementation","method.d3":"We build automations, agents and contracts with iterative delivery and validation with you.",
       "method.ph4":"Phase 04 · Scale","method.h4":"Optimization","method.d4":"We measure, adjust and expand. We train your team so they take control with confidence.",
+      "tst.eyebrow":"What clients say","tst.title":"Clients already <b>scaling with AI</b>","tst.p":"Real results from teams that have already integrated AI into their operations.","tst.starsLabel":"5 out of 5 stars",
+      "tst1.quote":"\"In six weeks we had an agent handling 80% of inquiries. The team can finally focus on what matters.\"","tst1.role":"COO · B2B Services",
+      "tst2.quote":"\"They guided us from scratch. Not just strategy: they delivered something that works in production and gives measurable results.\"","tst2.role":"CEO · E-commerce",
+      "tst3.quote":"\"Professional, fast and transparent. We saw ROI in the first quarter. We're already on our third project together.\"","tst3.role":"Ops Director · Fintech",
       "cta.title":"Put AI to <b>work for you</b>","cta.p":"Book a free 30-minute assessment. You'll leave with at least 3 concrete automation opportunities for your company.","cta.b1":"Book assessment","cta.b2":"View services",
       "contact.eyebrow":"Let's talk","contact.title":"Tell us <b style='font-weight:700'>your challenge</b>","contact.p":"We reply within 24 business hours. No commitment and no unnecessary technical jargon.",
       "contact.emailK":"Email","contact.bookK":"Direct booking",
@@ -852,7 +988,7 @@ img,svg,canvas{display:block;max-width:100%}button{font-family:inherit}
       "form.okTitle":"Message sent!","form.okText":"Thanks for reaching out. We'll get back to you within 24 business hours.",
       "foot.about":"Strategic consulting in Artificial Intelligence. We integrate AI into your real operation.",
       "foot.services":"Services","foot.company":"Company","foot.legal":"Legal","foot.legal1":"Legal notice","foot.legal2":"Privacy","foot.legal3":"Cookies",
-      "foot.copy":"© <span id='year'>2026</span> AI CONSULTANT. All rights reserved.","foot.tagline":"Premium design · Technological aesthetic"
+      "foot.copy":"© <span id='year'>2026</span> AI CONSULTANT. All rights reserved.","foot.tagline":"© Powered by Angel Caro | La Plata | Buenos Aires | Argentina"
     }
   };
 
@@ -884,6 +1020,9 @@ img,svg,canvas{display:block;max-width:100%}button{font-family:inherit}
     document.querySelectorAll('[data-i18n-ph]').forEach(function(el){
       var k = el.getAttribute('data-i18n-ph'); if(dict[k] != null) el.setAttribute('placeholder', dict[k]);
     });
+    document.querySelectorAll('[data-i18n-aria]').forEach(function(el){
+      var k = el.getAttribute('data-i18n-aria'); if(dict[k] != null) el.setAttribute('aria-label', dict[k]);
+    });
     var yr = document.getElementById('year'); if(yr) yr.textContent = new Date().getFullYear();
     var ll = document.getElementById('langLabel'); if(ll) ll.textContent = lang.toUpperCase();
     var fl = document.getElementById('langFlag'); if(fl) fl.innerHTML = FLAGS[lang];
@@ -903,6 +1042,10 @@ img,svg,canvas{display:block;max-width:100%}button{font-family:inherit}
     var h=document.documentElement.scrollHeight-innerHeight;pbar.style.width=(h>0?(y/h)*100:0)+'%';}
   addEventListener('scroll',onScroll,{passive:true});onScroll();
 
+  /* Marquee: duplicar para loop continuo */
+  var mtrack=document.getElementById('marquee');
+  if(mtrack){ mtrack.innerHTML += mtrack.innerHTML; }
+
   /* Menú móvil */
   var burger=document.getElementById('burger'),menu=document.getElementById('mobileMenu'),scrim=document.getElementById('scrim');
   function toggle(o){menu.classList.toggle('open',o);scrim.classList.toggle('show',o);burger.setAttribute('aria-expanded',o?'true':'false');document.body.style.overflow=o?'hidden':'';}
@@ -921,10 +1064,10 @@ img,svg,canvas{display:block;max-width:100%}button{font-family:inherit}
   /* Contadores */
   function animCount(el){
     var to=parseFloat(el.getAttribute('data-to')),dec=parseInt(el.getAttribute('data-dec')||'0',10);
-    if(reduce){el.textContent=(dec?to.toFixed(dec).replace('.',','):to);return;}
+    if(reduce){el.textContent=(dec?to.toFixed(dec):to);return;}
     var dur=1600,st=null;
     (function tick(ts){if(!st)st=ts;var p=Math.min((ts-st)/dur,1),e=1-Math.pow(1-p,3),v=(to*e);
-      el.textContent=(dec?v.toFixed(dec).replace('.',','):Math.round(v));if(p<1)requestAnimationFrame(tick);})(0);
+      el.textContent=(dec?v.toFixed(dec):Math.round(v));if(p<1)requestAnimationFrame(tick);})(0);
   }
   document.querySelectorAll('.count').forEach(function(c){
     if('IntersectionObserver' in window){var o=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){animCount(c);o.unobserve(c);}});},{threshold:.6});o.observe(c);}
