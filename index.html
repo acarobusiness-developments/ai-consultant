@@ -303,7 +303,7 @@ img,svg,canvas{display:block;max-width:100%}button{font-family:inherit}
 .foot-social{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px}
 .foot-social a{position:relative;width:42px;height:42px;border-radius:11px;border:1px solid var(--line);display:grid;place-items:center;color:var(--fg-muted);transition:.25s;-webkit-tap-highlight-color:transparent}
 .foot-social a:hover{color:var(--cyan);border-color:var(--cyan)}
-.foot-social svg{width:20px;height:20px;shape-rendering:geometricPrecision}
+.foot-social svg{position:absolute;inset:0;margin:auto;width:20px;height:20px;shape-rendering:geometricPrecision}
 .foot-col h5{font-family:var(--font);font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-dim);margin-bottom:18px}
 .foot-col a{display:block;font-family:var(--font);color:var(--fg-muted);font-size:.92rem;padding:7px 0;transition:.2s}
 .foot-col a:hover{color:var(--cyan)}
@@ -357,7 +357,7 @@ img,svg,canvas{display:block;max-width:100%}button{font-family:inherit}
 .lang-mobile{margin-top:18px;align-self:flex-start}
 .mm-social{margin:14px 4px 0;padding-top:18px;border-top:1px solid var(--line);flex-wrap:nowrap;gap:8px}
 .foot-social.mm-social a{width:36px;height:36px;border-radius:10px}
-.foot-social.mm-social svg{width:18px;height:18px}
+.foot-social.mm-social svg{width:21px;height:21px}
 /* Área táctil ampliada a ~44px (accesible) sin agrandar el ícono visualmente */
 .foot-social.mm-social a::before{content:"";position:absolute;inset:-4px}
 @media (prefers-reduced-motion:reduce){
