@@ -256,7 +256,11 @@ img,svg,canvas{display:block;max-width:100%}button{font-family:inherit}
 .tst .stars svg{width:16px;height:16px}
 .tst .quote{font-family:var(--font);font-size:1rem;color:var(--fg);line-height:1.6;font-weight:500}
 .tst .who{display:flex;align-items:center;gap:13px;margin-top:auto}
-.tst .who .av{width:46px;height:46px;flex:0 0 auto;border-radius:50%;background:var(--grad-line);display:grid;place-items:center;color:#04121f;font-weight:800;font-family:var(--font)}
+.tst .who .av{position:relative;width:46px;height:46px;flex:0 0 auto;border-radius:50%;background:var(--grad-line);display:grid;place-items:center;color:#04121f;font-weight:800;font-family:var(--font);overflow:hidden}
+.tst .who .av img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05)}
+/* Foto de María: encuadre panorámico con rostro corrido a la derecha; se amplía y
+   reencuadra para igualar el nivel de acercamiento de las otras dos fotos. */
+.tst .who .av img.av-fit{transform:scale(1.85);transform-origin:58% 40%}
 .tst .who b{font-family:var(--font);display:block;font-size:.95rem;color:var(--fg)}
 .tst .who span{font-family:var(--font);color:var(--fg-dim);font-size:.82rem}
 /* El CTA ocupa todo el ancho del grid: mismo nivel, tamaño diferenciado */
@@ -732,7 +736,7 @@ img,svg,canvas{display:block;max-width:100%}button{font-family:inherit}
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.5 7 .6-5.3 4.6L18.3 21 12 17.3 5.7 21l1.6-7.3L2 9.1l7-.6L12 2Z"/></svg>
           </div>
           <blockquote class="quote" data-i18n="tst1.quote">"En seis semanas teníamos un agente atendiendo el 80% de las consultas. El equipo por fin se dedica a lo que importa."</blockquote>
-          <figcaption class="who"><span class="av">ML</span><div><b>María López</b><span data-i18n="tst1.role">COO · Servicios B2B</span></div></figcaption>
+          <figcaption class="who"><span class="av"><img src="tst-maria.jpg" class="av-fit" alt="" loading="lazy" /></span><div><b>María López</b><span data-i18n="tst1.role">COO · Servicios B2B</span></div></figcaption>
         </figure>
 
         <figure class="tst reveal" data-d="2">
@@ -744,7 +748,7 @@ img,svg,canvas{display:block;max-width:100%}button{font-family:inherit}
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.5 7 .6-5.3 4.6L18.3 21 12 17.3 5.7 21l1.6-7.3L2 9.1l7-.6L12 2Z"/></svg>
           </div>
           <blockquote class="quote" data-i18n="tst2.quote">"Nos guiaron desde cero. No solo estrategia: nos entregaron algo que funciona en producción y da resultados medibles."</blockquote>
-          <figcaption class="who"><span class="av">JR</span><div><b>Javier Ruiz</b><span data-i18n="tst2.role">CEO · E-commerce</span></div></figcaption>
+          <figcaption class="who"><span class="av"><img src="tst-javier.jpg" alt="" loading="lazy" /></span><div><b>Javier Ruiz</b><span data-i18n="tst2.role">CEO · E-commerce</span></div></figcaption>
         </figure>
 
         <figure class="tst reveal" data-d="3">
@@ -756,7 +760,7 @@ img,svg,canvas{display:block;max-width:100%}button{font-family:inherit}
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.5 7 .6-5.3 4.6L18.3 21 12 17.3 5.7 21l1.6-7.3L2 9.1l7-.6L12 2Z"/></svg>
           </div>
           <blockquote class="quote" data-i18n="tst3.quote">"Profesionales, rápidos y transparentes. El ROI se notó en el primer trimestre. Ya vamos por el tercer proyecto juntos."</blockquote>
-          <figcaption class="who"><span class="av">AC</span><div><b>Ana Castro</b><span data-i18n="tst3.role">Directora de Ops · Fintech</span></div></figcaption>
+          <figcaption class="who"><span class="av"><img src="tst-ana.jpg" alt="" loading="lazy" /></span><div><b>Ana Castro</b><span data-i18n="tst3.role">Directora de Ops · Fintech</span></div></figcaption>
         </figure>
 
         <div class="cta reveal" data-d="4">
