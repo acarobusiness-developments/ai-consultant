@@ -812,6 +812,11 @@ img,svg,canvas{display:block;max-width:100%}button{font-family:inherit}
               <span class="err" id="e-email" data-i18n="form.emailErr">Introduce un email válido.</span>
             </div>
             <div class="field">
+              <label for="f-phone"><span data-i18n="form.phone">Teléfono</span> <span class="req" aria-hidden="true">*</span></label>
+              <input type="tel" id="f-phone" name="phone" autocomplete="tel" inputmode="tel" required data-i18n-ph="form.phonePh" placeholder="+54 9 11 1234 5678" />
+              <span class="err" id="e-phone" data-i18n="form.phoneErr">Indica un teléfono de contacto.</span>
+            </div>
+            <div class="field">
               <label for="f-need"><span data-i18n="form.need">¿Qué necesitas?</span> <span class="req" aria-hidden="true">*</span></label>
               <select id="f-need" name="need" required>
                 <option value="" disabled selected data-i18n="form.needPh">Selecciona una opción…</option>
@@ -830,6 +835,7 @@ img,svg,canvas{display:block;max-width:100%}button{font-family:inherit}
               <span class="err" id="e-msg" data-i18n="form.msgErr">Escribe un breve mensaje.</span>
             </div>
             <button type="submit" class="btn solid" id="submitBtn"><span class="btn-label" data-i18n="form.submit">Solicitar diagnóstico gratuito</span></button>
+            <p class="form-note form-note-error" id="formError" data-i18n="form.errorText" role="alert" style="display:none;color:#FF8A8A">No pudimos enviar tu mensaje. Revisa tu conexión e intenta de nuevo, o escríbenos por WhatsApp.</p>
             <p class="form-note" data-i18n="form.note">Al enviar aceptas ser contactado por AI CONSULTANT. Tus datos están seguros y no se comparten.</p>
           </div>
           <div class="form-success" id="formSuccess" role="status" aria-live="polite">
@@ -930,10 +936,12 @@ img,svg,canvas{display:block;max-width:100%}button{font-family:inherit}
       "contact.emailK":"Email","contact.bookK":"Agenda directa",
       "form.name":"Nombre","form.namePh":"Tu nombre completo","form.nameErr":"Indica tu nombre.",
       "form.email":"Email corporativo","form.emailPh":"tu@empresa.com","form.emailErr":"Introduce un email válido.",
+      "form.phone":"Teléfono","form.phonePh":"+54 9 11 1234 5678","form.phoneErr":"Indica un teléfono de contacto.",
       "form.need":"¿Qué necesitas?","form.needPh":"Selecciona una opción…","form.needErr":"Selecciona una opción.",
       "form.msg":"Cuéntanos tu reto","form.msgPh":"Describe brevemente tu proceso o el problema que quieres resolver…","form.msgErr":"Escribe un breve mensaje.",
       "form.submit":"Solicitar diagnóstico gratuito","form.sending":"Enviando…","form.note":"Al enviar aceptas ser contactado por AI CONSULTANT. Tus datos están seguros y no se comparten.",
       "form.okTitle":"¡Mensaje enviado!","form.okText":"Gracias por escribirnos. Te responderemos en menos de 24 horas laborables.",
+      "form.errorText":"No pudimos enviar tu mensaje. Revisa tu conexión e intenta de nuevo, o escríbenos por WhatsApp.",
       "foot.about":"Consultoría estratégica en Inteligencia Artificial. Integramos la IA en tu operación real.",
       "foot.services":"Servicios","foot.company":"Empresa","foot.legal":"Legal","foot.legal1":"Aviso legal","foot.legal2":"Privacidad","foot.legal3":"Cookies",
       "foot.copy":"© <span id='year'>2026</span> AI CONSULTANT. Todos los derechos reservados.","foot.tagline":"© Powered by Angel Caro | La Plata | Buenos Aires | Argentina"
@@ -986,10 +994,12 @@ img,svg,canvas{display:block;max-width:100%}button{font-family:inherit}
       "contact.emailK":"Email","contact.bookK":"Direct booking",
       "form.name":"Name","form.namePh":"Your full name","form.nameErr":"Please enter your name.",
       "form.email":"Business email","form.emailPh":"you@company.com","form.emailErr":"Enter a valid email.",
+      "form.phone":"Phone number","form.phonePh":"+1 555 123 4567","form.phoneErr":"Enter a contact phone number.",
       "form.need":"What do you need?","form.needPh":"Select an option…","form.needErr":"Select an option.",
       "form.msg":"Tell us your challenge","form.msgPh":"Briefly describe the process or problem you want to solve…","form.msgErr":"Write a short message.",
       "form.submit":"Request free assessment","form.sending":"Sending…","form.note":"By submitting you agree to be contacted by AI CONSULTANT. Your data is safe and never shared.",
       "form.okTitle":"Message sent!","form.okText":"Thanks for reaching out. We'll get back to you within 24 business hours.",
+      "form.errorText":"We couldn't send your message. Check your connection and try again, or reach us on WhatsApp.",
       "foot.about":"Strategic consulting in Artificial Intelligence. We integrate AI into your real operation.",
       "foot.services":"Services","foot.company":"Company","foot.legal":"Legal","foot.legal1":"Legal notice","foot.legal2":"Privacy","foot.legal3":"Cookies",
       "foot.copy":"© <span id='year'>2026</span> AI CONSULTANT. All rights reserved.","foot.tagline":"© Powered by Angel Caro | La Plata | Buenos Aires | Argentina"
@@ -1156,6 +1166,14 @@ img,svg,canvas{display:block;max-width:100%}button{font-family:inherit}
     if('IntersectionObserver' in window)new IntersectionObserver(function(en){if(en[0].isIntersecting){if(!raf)draw();}else{cancelAnimationFrame(raf);raf=null;}},{threshold:0}).observe(hero);
   }
 
+  /* ═══ Formulario → Google Sheets (vía Google Apps Script Web App) ═══
+     1) Crea una hoja de cálculo en Google Drive.
+     2) Extensiones → Apps Script, pega el código que te dimos y guarda.
+     3) Implementar → Nueva implementación → tipo "Aplicación web"
+        (Ejecutar como: Yo · Quién tiene acceso: Cualquier usuario) → Implementar.
+     4) Copia la URL que termina en /exec y pégala abajo, reemplazando el texto de ejemplo. */
+  var GOOGLE_SHEETS_ENDPOINT = "https://script.google.com/macros/s/AKfycbzN5asNxCCBxPHfI0VNTkm7sGf8Ml2dx3x-Mgt-gUMeIpHKyvhOyT-J7u0Q1N1GFiRM/exec";
+
   /* Formulario */
   var form=document.getElementById('leadForm');
   function val(inp){var f=inp.closest('.field'),ok=inp.checkValidity()&&inp.value.trim()!=='';f.classList.toggle('invalid',!ok);return ok;}
@@ -1168,8 +1186,45 @@ img,svg,canvas{display:block;max-width:100%}button{font-family:inherit}
     e.preventDefault();var ok=true,bad=null;
     form.querySelectorAll('[required]').forEach(function(inp){if(!val(inp)){ok=false;if(!bad)bad=inp;}});
     if(!ok){if(bad)bad.focus();return;}
-    var btn=document.getElementById('submitBtn');btn.disabled=true;btn.querySelector('.btn-label').textContent=I18N[lang]['form.sending'];
-    setTimeout(function(){document.getElementById('formFields').style.display='none';var s=document.getElementById('formSuccess');s.style.display='block';s.scrollIntoView({behavior:reduce?'auto':'smooth',block:'center'});},1100);
+
+    var errBox=document.getElementById('formError'); errBox.style.display='none';
+    var btn=document.getElementById('submitBtn');
+    btn.disabled=true;btn.querySelector('.btn-label').textContent=I18N[lang]['form.sending'];
+
+    function showError(){
+      btn.disabled=false; btn.querySelector('.btn-label').textContent=I18N[lang]['form.submit'];
+      errBox.style.display='block';
+      errBox.scrollIntoView({behavior:reduce?'auto':'smooth',block:'center'});
+    }
+    function showSuccess(){
+      document.getElementById('formFields').style.display='none';
+      var s=document.getElementById('formSuccess');s.style.display='block';
+      s.scrollIntoView({behavior:reduce?'auto':'smooth',block:'center'});
+    }
+
+    if(!/^https:\/\/script\.google(usercontent)?\.com\//.test(GOOGLE_SHEETS_ENDPOINT)){
+      console.warn('[Formulario] Falta configurar GOOGLE_SHEETS_ENDPOINT con la URL de tu Google Apps Script (ver comentario arriba).');
+      showError();
+      return;
+    }
+
+    var payload={
+      name: document.getElementById('f-name').value.trim(),
+      email: document.getElementById('f-email').value.trim(),
+      phone: document.getElementById('f-phone').value.trim(),
+      need: document.getElementById('f-need').value,
+      message: document.getElementById('f-msg').value.trim(),
+      lang: lang,
+      page: location.href,
+      submittedAt: new Date().toISOString()
+    };
+
+    fetch(GOOGLE_SHEETS_ENDPOINT, {
+      method:'POST',
+      mode:'no-cors', /* Apps Script no responde CORS; no podemos leer la respuesta, solo si la petición llegó a salir */
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body: JSON.stringify(payload)
+    }).then(showSuccess).catch(showError);
   });
 })();
 </script>
