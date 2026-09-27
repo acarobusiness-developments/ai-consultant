@@ -416,6 +416,7 @@ img,svg,canvas{display:block;max-width:100%}button{font-family:inherit}
 .wc-header{display:flex;align-items:center;gap:14px;padding:18px 20px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,rgba(16,48,88,.5),transparent);flex:0 0 auto}
 .wc-avatar{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--line-strong);overflow:hidden;flex:0 0 auto;background:var(--panel);display:grid;place-items:center}
 .wc-avatar svg{width:24px;height:24px;color:var(--cyan)}
+.wc-avatar-img{width:100%;height:100%;object-fit:cover;border-radius:50%;filter:grayscale(100%) contrast(1.1);display:block}
 .wc-header-info{flex:1;min-width:0}
 .wc-header-name{font-family:var(--font-display);font-weight:700;font-size:1rem;letter-spacing:.06em;color:var(--fg)}
 .wc-header-status{font-family:var(--font);font-size:.72rem;color:var(--cyan);display:flex;align-items:center;gap:6px}
@@ -1441,12 +1442,19 @@ if ('serviceWorker' in navigator) {
   fab.innerHTML = '<span class="wc-pulse"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span class="wc-badge" id="wcBadge">1</span>';
   document.body.appendChild(fab);
 
+  /* ── Random Consultant ── */
+  var consultants = [
+    { name: 'Pilar Rojas', img: 'pilar-rojas.jpg' },
+    { name: 'Martin Dominguez', img: 'martin-dominguez.jpg' }
+  ];
+  var chosenConsultant = consultants[Math.floor(Math.random() * consultants.length)];
+
   var win = document.createElement('div');
   win.className = 'wc-window';
   win.id = 'wcWindow';
   win.innerHTML = '<div class="wc-header">'
-    +'<div class="wc-avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a4 4 0 0 0-4 4v2a4 4 0 0 0 8 0V6a4 4 0 0 0-4-4z"/><path d="M18 14H6a4 4 0 0 0-4 4v2h20v-2a4 4 0 0 0-4-4z"/><circle cx="12" cy="6" r="2" fill="currentColor" opacity=".3"/></svg></div>'
-    +'<div class="wc-header-info"><div class="wc-header-name">AI Consultant</div><div class="wc-header-status">En línea</div></div>'
+    +'<div class="wc-avatar" id="wcAvatar"><img src="' + chosenConsultant.img + '" alt="' + chosenConsultant.name + '" class="wc-avatar-img"></div>'
+    +'<div class="wc-header-info"><div class="wc-header-name" id="wcHeaderName">' + chosenConsultant.name + '</div><div class="wc-header-status">En línea</div></div>'
     +'<button class="wc-close" id="wcClose" aria-label="Cerrar chat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>'
     +'</div>'
     +'<div class="wc-messages" id="wcMsgs"></div>'
