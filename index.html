@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>AI CONSULTANT — Consultoría Estratégica en Inteligencia Artificial</title>
 <meta name="description" content="Consultoría estratégica en IA. Automatizaciones, Agentes, WebChat, ChatBot y Smart Contracts que integran la inteligencia artificial en tu operación real." />
 <meta property="og:title" content="AI CONSULTANT — Business Analyst" />
@@ -15,6 +15,14 @@
 <link rel="alternate icon" href="favicon.ico" />
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
 <meta name="theme-color" content="#061529" />
+
+<!-- Web App (PWA): al "Agregar a pantalla de inicio" se abre a pantalla completa,
+     sin barra de navegador, como una app nativa. -->
+<link rel="manifest" href="manifest.json" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="AI Consultant" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -1235,6 +1243,13 @@ img,svg,canvas{display:block;max-width:100%}button{font-family:inherit}
     }).then(showSuccess).catch(showError);
   });
 })();
+
+/* Registro del Service Worker (habilita "Agregar a pantalla de inicio" como app) */
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function(){
+    navigator.serviceWorker.register('sw.js').catch(function(){});
+  });
+}
 </script>
 </body>
 </html>
