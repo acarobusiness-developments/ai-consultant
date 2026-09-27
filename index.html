@@ -479,10 +479,74 @@ img,svg,canvas{display:block;max-width:100%}button{font-family:inherit}
 .wc-rec-send{font-family:var(--font);font-size:.78rem;font-weight:700;color:#04121f;cursor:pointer;padding:4px 14px;border-radius:8px;border:none;background:var(--grad-line);transition:.2s}
 .wc-rec-send:hover{transform:scale(1.04)}
 
-@media(max-width:480px){
-  .wc-fab{bottom:18px;right:18px;width:56px;height:56px}
-  .wc-window{bottom:0;right:0;width:100vw;height:100svh;border-radius:0;max-height:none}
-  .wc-window.open{border-radius:0}
+@media(max-width:600px){
+  .wc-fab{
+    bottom:calc(16px + env(safe-area-inset-bottom, 0px));
+    right:16px;
+    width:52px;
+    height:52px;
+  }
+  .wc-fab svg{
+    width:24px;
+    height:24px;
+  }
+  .wc-window{
+    bottom:calc(76px + env(safe-area-inset-bottom, 0px));
+    right:12px;
+    left:12px;
+    width:auto;
+    max-width:420px;
+    margin-left:auto;
+    height:min(500px, calc(68svh - env(safe-area-inset-bottom, 0px)));
+    max-height:calc(70svh - env(safe-area-inset-bottom, 0px));
+    border-radius:20px;
+    box-shadow:0 20px 50px -10px rgba(0,0,0,.7),0 0 0 1px var(--line-strong),0 0 40px -15px var(--glow);
+  }
+  .wc-window.open{
+    border-radius:20px;
+  }
+  .wc-header{
+    padding:14px 16px;
+    gap:10px;
+  }
+  .wc-avatar{
+    width:38px;
+    height:38px;
+  }
+  .wc-avatar svg{
+    width:20px;
+    height:20px;
+  }
+  .wc-header-name{
+    font-size:.92rem;
+  }
+  .wc-messages{
+    padding:14px 12px;
+    gap:10px;
+  }
+  .wc-msg{
+    max-width:92%;
+    padding:11px 14px;
+    font-size:.86rem;
+    line-height:1.5;
+  }
+  .wc-footer{
+    padding:10px 12px;
+    gap:8px;
+  }
+  .wc-input{
+    padding:10px 12px;
+    font-size:.88rem;
+  }
+  .wc-send, .wc-mic{
+    width:38px;
+    height:38px;
+    flex-shrink:0;
+  }
+  .wc-send svg, .wc-mic svg{
+    width:17px;
+    height:17px;
+  }
 }
 
 </style>
