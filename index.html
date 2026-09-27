@@ -1650,12 +1650,16 @@ if ('serviceWorker' in navigator) {
   /* ── Webhook communication ── */
   function sendToWebhook(message, action, audioB64){
     addTyping();
+    var isFemale = chosenConsultant.name === 'Pilar Rojas';
     var body = {
       message: message || '',
       sessionId: SESSION_ID,
       userName: 'Visitante',
       messageType: audioB64 ? 'audio' : 'text',
-      userPreference: userPref
+      userPreference: userPref,
+      consultantName: chosenConsultant.name,
+      consultantVoice: isFemale ? 'nova' : 'echo',
+      consultantGender: isFemale ? 'female' : 'male'
     };
     if(action) body.action = action;
     if(audioB64) body.audioBase64 = audioB64;
