@@ -180,13 +180,15 @@ img,svg,canvas{display:block;max-width:100%}button{font-family:inherit}
   mask-image:linear-gradient(180deg,#000 78%,transparent 100%)}
 
 /* Versión mobile de la figura: oculta por defecto (en escritorio vive dentro de
-   .glass-tower); en mobile asoma como una porción angosta por el borde derecho,
-   a la altura del bloque de features + botones (44%–84% del hero, medido). */
+   .glass-tower). En mobile vive dentro de .hero-actions y se ancla con bottom a la
+   línea de "Descargar dossier": el centro de los zapatos (≈97% de la altura de la
+   imagen) queda a media altura de esa fila (19px = mitad de su alto). */
 .consultant-figure-mobile{display:none}
 @media (max-width:720px){
+  .hero-actions{position:relative}
   .consultant-figure-mobile{
-    display:block;position:absolute;top:44%;height:40%;right:64px;width:auto;
-    opacity:.55;pointer-events:none;z-index:0;
+    display:block;position:absolute;height:98vw;right:38px;bottom:calc(19px - 2.97vw);width:auto;
+    opacity:.55;pointer-events:none;z-index:-1;
   }
   .consultant-figure-mobile img{display:block;height:100%;width:auto;
     filter:grayscale(1) sepia(1) hue-rotate(165deg) saturate(2.4) brightness(.95) contrast(1.05);
@@ -635,11 +637,6 @@ img,svg,canvas{display:block;max-width:100%}button{font-family:inherit}
       <div class="edge" style="left:62%;top:16%;height:76%"></div>
     </div>
 
-    <!-- Figura del consultor, versión mobile: asoma por el borde derecho, a la
-         altura de las features y los botones (oculta en escritorio, donde vive
-         la versión de .glass-tower). -->
-    <div class="consultant-figure-mobile" aria-hidden="true"><img src="consultant-figure.webp" alt="" loading="lazy" /></div>
-
     <div class="container">
       <div class="hero-grid">
         <div>
@@ -664,6 +661,8 @@ img,svg,canvas{display:block;max-width:100%}button{font-family:inherit}
           </div>
 
           <div class="hero-actions reveal" data-d="3">
+            <!-- Figura del consultor, versión mobile (oculta en escritorio, donde vive la de .glass-tower). -->
+            <div class="consultant-figure-mobile" aria-hidden="true"><img src="consultant-figure.webp" alt="" loading="lazy" /></div>
             <a href="#servicios" class="btn magnetic"><span data-i18n="hero.cta1">Ver servicios</span> <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
             <a href="#contacto" class="btn link"><span data-i18n="hero.cta2">Descargar dossier</span>
               <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg></span>
