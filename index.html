@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>AI CONSULTANT — Consultoría Estratégica en Inteligencia Artificial</title>
+<title>Consultora Estratégica en Inteligencia Artificial y Agentes</title>
 <meta name="description" content="Consultoría estratégica en IA. Automatizaciones, Agentes, WebChat, ChatBot y Smart Contracts que integran la inteligencia artificial en tu operación real." />
 <meta property="og:title" content="AI CONSULTANT — Business Analyst" />
 <meta property="og:description" content="Integramos la IA en tu operación real: automatizaciones, agentes, chatbots y smart contracts." />
@@ -403,11 +403,21 @@ img,svg,canvas{display:block;max-width:100%}button{font-family:inherit}
 /* ═══════════════════════════════════════════════════════
    🤖 WEBCHAT WIDGET — AI CONSULTANT
    ═══════════════════════════════════════════════════════ */
-.wc-fab{position:fixed;bottom:28px;right:28px;z-index:9999;width:62px;height:62px;border-radius:50%;border:1.5px solid var(--line-strong);background:linear-gradient(135deg,rgba(14,42,78,.85),rgba(8,26,50,.92));backdrop-filter:blur(14px);cursor:pointer;display:grid;place-items:center;box-shadow:0 8px 32px -8px var(--glow),0 0 0 1px var(--line);transition:transform .3s var(--ease),box-shadow .3s,border-color .3s}
-.wc-fab:hover{transform:scale(1.08) translateY(-2px);border-color:var(--cyan);box-shadow:0 12px 44px -8px var(--glow)}
-.wc-fab svg{width:28px;height:28px;color:var(--cyan);transition:transform .3s var(--ease)}
-.wc-fab.open svg{transform:rotate(90deg) scale(.9)}
-.wc-fab .wc-badge{position:absolute;top:-2px;right:-2px;width:18px;height:18px;border-radius:50%;background:#FF6B6B;border:2px solid var(--bg);font-size:10px;font-weight:700;color:#fff;display:grid;place-items:center;transform:scale(0);transition:transform .25s var(--ease)}
+.wc-bubble{position:fixed;bottom:36px;right:102px;z-index:9997;display:flex;align-items:center;gap:8px;padding:9px 16px;background:linear-gradient(135deg,rgba(12,39,69,.94),rgba(6,21,41,.98));border:1px solid rgba(91,180,232,.4);border-radius:999px;backdrop-filter:blur(20px) saturate(130%);box-shadow:0 10px 30px -6px rgba(0,0,0,.6),0 0 20px -6px var(--glow);color:var(--fg);font-family:var(--font);font-size:.82rem;font-weight:600;letter-spacing:.01em;white-space:nowrap;cursor:pointer;transition:transform .3s var(--ease),opacity .3s var(--ease),visibility .3s;user-select:none;animation:wc-bubble-float 4s ease-in-out infinite}
+.wc-bubble:hover{transform:translateY(-2px);border-color:var(--cyan);box-shadow:0 14px 34px -6px rgba(0,0,0,.7),0 0 24px -4px var(--glow)}
+.wc-bubble::after{content:"";position:absolute;right:-7px;top:50%;transform:translateY(-50%);width:0;height:0;border-top:6px solid transparent;border-bottom:6px solid transparent;border-left:7px solid rgba(91,180,232,.55)}
+.wc-bubble-dot{width:8px;height:8px;border-radius:50%;background:var(--cyan);box-shadow:0 0 8px var(--glow);flex:0 0 auto;animation:wc-dot-pulse 2s ease-in-out infinite}
+@keyframes wc-dot-pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+@keyframes wc-bubble-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+.wc-bubble.hide{opacity:0;visibility:hidden;transform:translateY(6px) scale(.92);pointer-events:none}
+
+.wc-fab{position:fixed;bottom:28px;right:28px;z-index:9999;width:62px;height:62px;border-radius:50%;border:1.5px solid var(--line-strong);background:linear-gradient(135deg,rgba(16,48,88,.94),rgba(6,21,41,.98));backdrop-filter:blur(20px);cursor:pointer;display:grid;place-items:center;box-shadow:0 12px 40px -10px rgba(0,0,0,.6),0 0 0 1px var(--line),0 0 35px -8px var(--glow);transition:transform .3s var(--ease),box-shadow .3s,border-color .3s}
+.wc-fab:hover{transform:scale(1.08) translateY(-2px);border-color:var(--cyan);box-shadow:0 16px 48px -8px rgba(0,0,0,.7),0 0 44px -6px var(--glow)}
+.wc-fab-bot{width:36px;height:38px;transition:transform .3s var(--ease),opacity .25s}
+.wc-fab-close{position:absolute;width:24px;height:24px;color:var(--cyan);opacity:0;transform:scale(0.5) rotate(-90deg);transition:transform .3s var(--ease),opacity .25s}
+.wc-fab.open .wc-fab-bot{opacity:0;transform:scale(0.5) rotate(90deg)}
+.wc-fab.open .wc-fab-close{opacity:1;transform:scale(1) rotate(0deg)}
+.wc-fab .wc-badge{position:absolute;top:-2px;right:-2px;width:18px;height:18px;border-radius:50%;background:#FF6B6B;border:2px solid var(--bg);font-size:10px;font-weight:700;color:#fff;display:grid;place-items:center;transform:scale(0);transition:transform .25s var(--ease);z-index:2}
 .wc-fab .wc-badge.show{transform:scale(1)}
 .wc-pulse{position:absolute;inset:-6px;border-radius:50%;border:1.5px solid var(--cyan);opacity:0;animation:wc-ping 2.5s ease-out infinite}
 @keyframes wc-ping{0%{transform:scale(1);opacity:.6}100%{transform:scale(1.5);opacity:0}}
@@ -489,66 +499,104 @@ img,svg,canvas{display:block;max-width:100%}button{font-family:inherit}
     width:52px;
     height:52px;
   }
-  .wc-fab svg{
-    width:24px;
-    height:24px;
+  .wc-fab-bot{
+    width:30px;
+    height:32px;
   }
-  .wc-window{
-    bottom:calc(76px + env(safe-area-inset-bottom, 0px));
-    right:12px;
-    left:12px;
-    width:auto;
-    max-width:420px;
-    margin-left:auto;
-    height:min(500px, calc(68svh - env(safe-area-inset-bottom, 0px)));
-    max-height:calc(70svh - env(safe-area-inset-bottom, 0px));
-    border-radius:20px;
-    box-shadow:0 20px 50px -10px rgba(0,0,0,.7),0 0 0 1px var(--line-strong),0 0 40px -15px var(--glow);
-  }
-  .wc-window.open{
-    border-radius:20px;
-  }
-  .wc-header{
-    padding:14px 16px;
-    gap:10px;
-  }
-  .wc-avatar{
-    width:38px;
-    height:38px;
-  }
-  .wc-avatar svg{
+  .wc-fab-close{
     width:20px;
     height:20px;
   }
+  .wc-bubble{
+    bottom:calc(20px + env(safe-area-inset-bottom, 0px));
+    right:76px;
+    padding:7px 12px;
+    font-size:.74rem;
+    gap:6px;
+  }
+  .wc-bubble-dot{
+    width:6px;
+    height:6px;
+  }
+  /* Centered and fully visible on mobile */
+  .wc-window{
+    left:50% !important;
+    right:auto !important;
+    transform:translate(-50%, 16px) scale(.95);
+    margin:0 !important;
+    width:calc(100vw - 20px) !important;
+    max-width:400px !important;
+    bottom:calc(76px + env(safe-area-inset-bottom, 0px)) !important;
+    height:min(480px, calc(100dvh - 90px - env(safe-area-inset-bottom, 0px))) !important;
+    max-height:calc(100dvh - 90px - env(safe-area-inset-bottom, 0px)) !important;
+    border-radius:20px;
+    box-shadow:0 24px 60px -10px rgba(0,0,0,.75),0 0 0 1px var(--line-strong),0 0 30px -10px var(--glow);
+  }
+  .wc-window.open{
+    transform:translate(-50%, 0) scale(1) !important;
+  }
+  .wc-header{
+    padding:12px 14px;
+    gap:10px;
+  }
+  .wc-avatar{
+    width:36px;
+    height:36px;
+  }
   .wc-header-name{
-    font-size:.92rem;
+    font-size:.9rem;
+  }
+  .wc-header-status{
+    font-size:.7rem;
+  }
+  .wc-close{
+    width:32px;
+    height:32px;
   }
   .wc-messages{
-    padding:14px 12px;
+    padding:12px 10px;
     gap:10px;
   }
   .wc-msg{
     max-width:92%;
-    padding:11px 14px;
-    font-size:.86rem;
-    line-height:1.5;
+    padding:10px 13px;
+    font-size:.84rem;
+    line-height:1.45;
   }
+  .wc-qr{
+    padding:7px 12px;
+    font-size:.76rem;
+  }
+  /* Footer: guaranteed bounds so send button NEVER overflows */
   .wc-footer{
-    padding:10px 12px;
-    gap:8px;
+    padding:8px 10px;
+    gap:6px;
+    box-sizing:border-box;
+    width:100%;
+    min-width:0;
+  }
+  .wc-input-wrap{
+    flex:1 1 auto;
+    min-width:0;
+    border-radius:14px;
+    overflow:hidden;
   }
   .wc-input{
-    padding:10px 12px;
-    font-size:.88rem;
+    width:100%;
+    min-width:0;
+    padding:9px 11px;
+    font-size:.86rem;
+    box-sizing:border-box;
   }
   .wc-send, .wc-mic{
-    width:38px;
-    height:38px;
-    flex-shrink:0;
+    width:36px;
+    height:36px;
+    flex:0 0 36px;
+    min-width:36px;
   }
   .wc-send svg, .wc-mic svg{
-    width:17px;
-    height:17px;
+    width:16px;
+    height:16px;
   }
 }
 
@@ -789,14 +837,14 @@ img,svg,canvas{display:block;max-width:100%}button{font-family:inherit}
           <div class="pct" data-pct="68">0<sup>%</sup></div>
           <div class="row-k" data-i18n="bars.k1">Reducción de costes operativos</div>
           <div class="row-v" data-i18n="bars.v1">Automatización integral</div>
-          <div class="bar3d" data-h="120"></div>
+          <div class="bar3d" data-h="92"></div>
         </div>
         <div class="barcard reveal" data-d="2">
           <div class="tier" data-i18n="bars.t2">Ventas</div>
           <div class="pct" data-pct="42">0<sup>%</sup></div>
           <div class="row-k" data-i18n="bars.k2">Más leads cualificados</div>
           <div class="row-v" data-i18n="bars.v2">Agentes + WebChat</div>
-          <div class="bar3d" data-h="92"></div>
+          <div class="bar3d" data-h="57"></div>
         </div>
         <div class="barcard reveal" data-d="3">
           <div class="tier" data-i18n="bars.t3">Soporte</div>
@@ -810,7 +858,7 @@ img,svg,canvas{display:block;max-width:100%}button{font-family:inherit}
           <div class="pct" data-pct="100">0<sup>%</sup></div>
           <div class="row-k" data-i18n="bars.k4">Trazabilidad on-chain</div>
           <div class="row-v" data-i18n="bars.v4">Smart Contracts</div>
-          <div class="bar3d" data-h="78"></div>
+          <div class="bar3d" data-h="135"></div>
         </div>
       </div>
     </div>
@@ -1434,11 +1482,36 @@ if ('serviceWorker' in navigator) {
   var userPref = 'auto';
 
   /* ── Build DOM ── */
+  var bubble = document.createElement('div');
+  bubble.className = 'wc-bubble';
+  bubble.id = 'wcBubble';
+  bubble.setAttribute('role', 'button');
+  bubble.setAttribute('tabindex', '0');
+  bubble.setAttribute('aria-label', 'Consulta a nuestros especialistas');
+  bubble.innerHTML = '<span class="wc-bubble-dot"></span><span class="wc-bubble-text">Consulta a nuestros especialistas</span>';
+  document.body.appendChild(bubble);
+
   var fab = document.createElement('button');
   fab.className = 'wc-fab';
   fab.id = 'wcFab';
   fab.setAttribute('aria-label','Abrir chat');
-  fab.innerHTML = '<span class="wc-pulse"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span class="wc-badge" id="wcBadge">1</span>';
+  fab.innerHTML = '<span class="wc-pulse"></span>'
+    + '<svg class="wc-fab-bot" viewBox="0 0 40 44" fill="none" aria-hidden="true">'
+    + '<defs><linearGradient id="fabHexGrad" x1="0" y1="0" x2="40" y2="44" gradientUnits="userSpaceOnUse"><stop stop-color="#7CCBF3"/><stop offset="1" stop-color="#2E6DA4"/></linearGradient><linearGradient id="fabBotGrad" x1="12" y1="12" x2="28" y2="30" gradientUnits="userSpaceOnUse"><stop stop-color="#123B68"/><stop offset="1" stop-color="#091E36"/></linearGradient></defs>'
+    + '<path d="M20 1.5 37.5 11.5v21L20 42.5 2.5 32.5v-21z" stroke="url(#fabHexGrad)" stroke-width="1.6" stroke-linejoin="round"/>'
+    + '<path d="M20 1.5v7M37.5 11.5l-6 4M2.5 11.5l6 4M20 42.5v-8M37.5 32.5l-6-4M2.5 32.5l6-4" stroke="url(#fabHexGrad)" stroke-width="1.2" opacity=".7"/>'
+    + '<line x1="20" y1="9" x2="20" y2="13.5" stroke="#7CCBF3" stroke-width="1.6"/>'
+    + '<circle cx="20" cy="8" r="2.2" fill="#7CCBF3"/>'
+    + '<rect x="11" y="14" width="18" height="15" rx="4.5" fill="url(#fabBotGrad)" stroke="#7CCBF3" stroke-width="1.4"/>'
+    + '<rect x="8.5" y="18" width="2.5" height="7" rx="1.2" fill="#7CCBF3"/>'
+    + '<rect x="29" y="18" width="2.5" height="7" rx="1.2" fill="#7CCBF3"/>'
+    + '<circle cx="16" cy="20.5" r="2.1" fill="#7CCBF3"/>'
+    + '<circle cx="24" cy="20.5" r="2.1" fill="#7CCBF3"/>'
+    + '<path d="M16.5 24.8c1 1 2.2 1.4 3.5 1.4s2.5-.4 3.5-1.4" stroke="#7CCBF3" stroke-width="1.4" stroke-linecap="round"/>'
+    + '<circle cx="20" cy="31.5" r="1.5" fill="#7CCBF3"/>'
+    + '</svg>'
+    + '<svg class="wc-fab-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>'
+    + '<span class="wc-badge" id="wcBadge">1</span>';
   document.body.appendChild(fab);
 
   /* ── Random Consultant ── */
@@ -1478,13 +1551,34 @@ if ('serviceWorker' in navigator) {
     chatOpen = !chatOpen;
     win.classList.toggle('open', chatOpen);
     fab.classList.toggle('open', chatOpen);
+    bubble.classList.toggle('hide', chatOpen);
     var badge = document.getElementById('wcBadge');
     if(chatOpen && badge) badge.classList.remove('show');
     if(chatOpen && msgs.childElementCount === 0) sendToWebhook('hola','send_welcome');
     if(chatOpen) setTimeout(function(){ inp.focus(); },350);
   }
   fab.addEventListener('click', toggleChat);
+  bubble.addEventListener('click', toggleChat);
+  bubble.addEventListener('keydown', function(e){ if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); toggleChat(); } });
   document.getElementById('wcClose').addEventListener('click', toggleChat);
+
+  /* ── Visual Viewport for Mobile Keyboard ── */
+  if(window.visualViewport){
+    window.visualViewport.addEventListener('resize', function(){
+      if(chatOpen && window.innerWidth <= 600){
+        var vh = window.visualViewport.height;
+        if(vh < 540){
+          win.style.bottom = '8px';
+          win.style.height = (vh - 16) + 'px';
+          win.style.maxHeight = (vh - 16) + 'px';
+        } else {
+          win.style.bottom = '';
+          win.style.height = '';
+          win.style.maxHeight = '';
+        }
+      }
+    });
+  }
 
   /* ── Auto-grow textarea ── */
   inp.addEventListener('input', function(){
