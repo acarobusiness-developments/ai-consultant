@@ -26,12 +26,12 @@ function doPost(e) {
 
   var isWebChat = data.tipo === 'webchat' || data.sessionId;
 
-  // Formato seguro para teléfono (Opción 2 con apóstrofo inicial):
-  // Evita que Google Sheets interprete el '+' inicial como fórmula matemática y devuelva #ERROR!
+  // Formato seguro para teléfono (Opción 1: ="+..."):
+  // Evita que Google Sheets interprete el '+' inicial como fórmula errónea y devuelva #ERROR!
   var rawPhone = (data.phone || '').toString().trim();
   var phoneVal = rawPhone;
-  if (phoneVal && (phoneVal.startsWith('+') || phoneVal.startsWith('='))) {
-    phoneVal = "'" + phoneVal;
+  if (phoneVal && phoneVal.charAt(0) === '+' && !phoneVal.startsWith('="')) {
+    phoneVal = '="' + phoneVal + '"';
   }
 
   try {
