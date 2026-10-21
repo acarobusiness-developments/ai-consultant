@@ -26,6 +26,14 @@ function doPost(e) {
 
   var isWebChat = data.tipo === 'webchat' || data.sessionId;
 
+  // Formato seguro para teléfono (Opción 2 con apóstrofo inicial):
+  // Evita que Google Sheets interprete el '+' inicial como fórmula matemática y devuelva #ERROR!
+  var rawPhone = (data.phone || '').toString().trim();
+  var phoneVal = rawPhone;
+  if (phoneVal && (phoneVal.startsWith('+') || phoneVal.startsWith('='))) {
+    phoneVal = "'" + phoneVal;
+  }
+
   try {
     if (isWebChat) {
       // Pestaña dedicada para WebChat
@@ -53,7 +61,7 @@ function doPost(e) {
         data.sessionId || '',
         data.consultant || '',
         data.name || 'Visitante WebChat',
-        data.phone || '',
+        phoneVal,
         data.email || '',
         data.need || 'Consulta General',
         data.userMessage || data.message || '',
@@ -77,7 +85,7 @@ function doPost(e) {
         new Date(),
         data.name || '',
         data.email || '',
-        data.phone || '',
+        phoneVal,
         data.need || '',
         data.message || '',
         data.lang || '',
@@ -91,7 +99,7 @@ function doPost(e) {
       new Date(),
       data.name || 'Visitante',
       data.email || '',
-      data.phone || '',
+      phoneVal,
       data.need || '',
       data.message || data.userMessage || '',
       data.lang || '',
