@@ -1446,10 +1446,16 @@ img,svg,canvas{display:block;max-width:100%}button{font-family:inherit}
       return;
     }
 
+    var rawPhone = document.getElementById('f-phone').value.trim();
+    if (rawPhone && rawPhone.charAt(0) === '+') {
+      rawPhone = '="' + rawPhone + '"';
+    }
+
     var payload={
+      tipo: 'formulario',
       name: document.getElementById('f-name').value.trim(),
       email: document.getElementById('f-email').value.trim(),
-      phone: document.getElementById('f-phone').value.trim(),
+      phone: rawPhone,
       need: document.getElementById('f-need').value,
       message: document.getElementById('f-msg').value.trim(),
       lang: lang,
